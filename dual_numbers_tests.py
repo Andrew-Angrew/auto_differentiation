@@ -14,10 +14,10 @@ def ssin(x):
         x = sin(x)
     return x
 
-def strange_function1(x):
+def trivial_function(x):
     return log(exp(x))
 
-def strange_function2(x):
+def strange_function(x):
     return sin(x + cos(x + sin(x)))
 
 MATRIX_SIZE = 3
@@ -26,7 +26,7 @@ A = SquareMatrix([
     for i in range(MATRIX_SIZE)
 ])
 #A = SquareMatrix([[1, 1], [1, 0.35]])
-def matrix_function1(t):
+def matrix_function(t):
     return log((A * t).exp().det())
 
 def approx_der(f, x, eps=0.0001):
@@ -48,6 +48,6 @@ def test(f, start=1, stop=None, N=101, tol=0.001):
 
 test(sin)
 test(ssin)
-test(strange_function1)
-test(strange_function2)
-test(matrix_function1)
+test(trivial_function)
+test(strange_function)
+test(matrix_function)
