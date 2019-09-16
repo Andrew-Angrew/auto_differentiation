@@ -29,9 +29,6 @@ A = SquareMatrix([
 def matrix_function(t):
     return log((A * t).exp().det())
 
-def approx_der(f, x, eps=0.0001):
-    return (f(x + eps) - f(x)) / eps
-
 def test(f, start=1, stop=None, N=101, tol=0.001):
     if stop is None:
         stop = start
