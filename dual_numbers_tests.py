@@ -7,7 +7,7 @@ import numpy as np
 
 from dual_numbers import sin, log, cos, exp, D
 from matrix import SquareMatrix
-
+from utils import approx_der
 
 def ssin(x):
     for i in range(100):
@@ -29,17 +29,17 @@ A = SquareMatrix([
 def matrix_function(t):
     return log((A * t).exp().det())
 
-def test(f, start=1, stop=None, N=101, tol=0.001):
+def test(f, start=1, stop=None, N=101, tol=0.001, plot=False):
     if stop is None:
         stop = start
         start = 0
     x_range = np.linspace(start, stop, N)
     ders = [D(f)(x) for x in x_range]
     approx_ders = [approx_der(f, x) for x in x_range]
-    if not np.allclose(ders, approx_ders, atol=tol):
+    if not np.allclose(ders, approx_ders, atol=tol) or plot:
         print("Fail for function {}".format(f.__name__))
-        plt.plot(x_range, ders, label="ders")
-        plt.plot(x_range, approx_ders, label="approximate ders")
+        plt.plot(x_range, ders, label="ders", color="blue")
+        plt.scatter(x_range, approx_ders, label="approximate ders", color="red")
         plt.legend()
         plt.show()
 
@@ -47,4 +47,5 @@ test(sin)
 test(ssin)
 test(trivial_function)
 test(strange_function)
-test(matrix_function)
+print(A.trace())
+test(matrix_function, plot=True)
